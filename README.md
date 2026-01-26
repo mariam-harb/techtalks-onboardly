@@ -31,7 +31,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:  
 ```bash
 git clone <repository-url>
-cd onboarding
+cd techtalks-onboardly
 ```
 
 2. Install dependencies:  
@@ -69,7 +69,7 @@ Changes in the `app` directory will hot-reload automatically.
 ## 📁 Project Structure
 
 ```
-onboarding/
+techtalks-onboardly/
 ├── app/                # Next.js App Router directory
 │   ├── layout.tsx      # Root layout component
 │   ├── page.tsx        # Home page
