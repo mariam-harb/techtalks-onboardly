@@ -21,7 +21,7 @@ A modern Next.js application built with **React, TypeScript, and Tailwind CSS th
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (version 18 or higher)  
+- [Node.js](https://nodejs.org/) (version **20.19.0** or higher — required by Mongoose 9.x and MongoDB driver 7.x)  
 - [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), [pnpm](https://pnpm.io/), or [bun](https://bun.sh/)  
 
 ---
