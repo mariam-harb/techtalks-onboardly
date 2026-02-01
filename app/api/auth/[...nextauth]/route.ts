@@ -6,7 +6,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token }) {
-      // Mock user & company
+      // Mock user & company for initial setup
       token.userId = "user-123";
       token.companyId = "company-abc";
       return token;
