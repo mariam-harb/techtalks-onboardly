@@ -2,6 +2,11 @@
 
 import React, { useState } from "react";
 
+const mockSession = {
+  user: {
+    id: "20198187", 
+  }
+};
 
 interface ExperienceFormData {
   type: "Struggle" | "Warning" | "Tip" | "Expectation vs Reality";
@@ -30,34 +35,41 @@ const ExperienceForm: React.FC = () => {
   };
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Convert string input to array
-        const keywordsArray = keywordsInput.split(",").map(k => k.trim()).filter(k => k !== "");
+  const finalFormData = {
+    ...formData,
+    keywords: keywordsInput.split(",").map(k => k.trim()).filter(k => k.length > 0)
+  };
 
-        // Create final form data object
-        const finalFormData = {
-              ...formData,
-             keywords: keywordsArray,};
+         const response = await fetch("/api/experiences", {
+               method: "POST",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify(finalFormData),
+              });
+              
+              if (!response.ok) {
+                  alert("Submission failed");
+                  return;
+                }
+                
+                const data = await response.json();
+                console.log(data);
+};
 
-        console.log("Form submitted:", finalFormData);
-        alert("Form submitted! Check console for data.");  };
     
-        
-
-  
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded shadow">
-      <h2 className="text-xl font-bold mb-4">Add Experience</h2>
+    <div>
+      <h2>Add Experience</h2>
       <form onSubmit={handleSubmit} className="space-y-3">
         {/* Type of Experience */}
 
 
         <div>
 
-          <label className="block mb-1">Type of Experience</label>
+          <label>Type of Experience</label>
           <select
             name="type"
             value={formData.type}
@@ -74,7 +86,7 @@ const ExperienceForm: React.FC = () => {
 
         {/* Description */}
         <div>
-          <label className="block mb-1">Description</label>
+          <label>Description</label>
           <textarea
             name="description"
             value={formData.description}
@@ -86,13 +98,13 @@ const ExperienceForm: React.FC = () => {
 
         {/* Keywords */}
         <div>
-          <label className="block mb-1">Keywords (optional, comma-separated)</label>
+          <label>Keywords (optional, comma-separated)</label>
  
         <input
            type="text"
            name="keywords"
            value={keywordsInput}
-           onChange={e => setKeywordsInput(e.target.value)} // update temporary string
+           onChange={e => setKeywordsInput(e.target.value)} 
            className="w-full border p-2 rounded"
         />
 
@@ -100,7 +112,7 @@ const ExperienceForm: React.FC = () => {
 
         {/* Time Period */}
         <div>
-          <label className="block mb-1">Time Period</label>
+          <label>Time Period</label>
           <select
             name="timePeriod"
             value={formData.timePeriod}
@@ -116,7 +128,7 @@ const ExperienceForm: React.FC = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
           Submit
         </button>
